@@ -111,7 +111,7 @@ def main():
     py.init()
     screen = py.display.set_mode((WIDTH, HEIGHT))
     clock = py.time.Clock()
-    game_state = chess_engine.game_state()
+    game_state = chess_engine.game_state()  # doesn't suppose to be here
     load_images()
     running = True
     square_selected = ()  # keeps track of the last selected square
