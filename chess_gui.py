@@ -125,7 +125,7 @@ def main():
         ai_move = ai.minimax_black(game_state, 3, -100000, 100000, True, Player.PLAYER_1)
         game_state.move_piece(ai_move[0], ai_move[1], True)
 
-    while running:
+    while running and not game_over:
         for e in py.event.get():
             if e.type == py.QUIT:
                 running = False
