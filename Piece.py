@@ -197,8 +197,6 @@ class Knight(Piece):
         #             _moves.append((new_row, new_col))
         # return _moves
         return self.get_valid_peaceful_moves(game_state) + self.get_valid_piece_takes(game_state)
-
-
 # Bishop
 class Bishop(Piece):
     def __init__(self, name, row_number, col_number, player):
