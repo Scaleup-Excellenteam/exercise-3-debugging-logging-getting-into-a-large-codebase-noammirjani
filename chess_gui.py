@@ -11,6 +11,11 @@ import pygame as py
 import ai_engine
 from enums import Player
 
+from log import get_logger
+
+""" logger"""
+logger = get_logger()
+
 """Variables"""
 WIDTH = HEIGHT = 512  # width and height of the chess board
 DIMENSION = 8  # the dimensions of the chess board
@@ -111,7 +116,7 @@ def main():
     py.init()
     screen = py.display.set_mode((WIDTH, HEIGHT))
     clock = py.time.Clock()
-    game_state = chess_engine.game_state()  # doesn't suppose to be here
+    game_state = chess_engine.game_state()
     load_images()
     running = True
     square_selected = ()  # keeps track of the last selected square
@@ -122,10 +127,13 @@ def main():
     ai = ai_engine.chess_ai()
     game_state = chess_engine.game_state()
     if human_player is 'b':
+        logger.info("AI is black - human starts first")
         ai_move = ai.minimax_black(game_state, 3, -100000, 100000, True, Player.PLAYER_1)
-        game_state.move_piece(ai_move[0], ai_move[1], True)
+        game_state.move_piece(ai_move[0], ai_move[1], True, True)
+    else:
+        logger.info("AI is white - AI starts first")
 
-    while running and not game_over:
+    while running:
         for e in py.event.get():
             if e.type == py.QUIT:
                 running = False
@@ -155,10 +163,10 @@ def main():
 
                             if human_player is 'w':
                                 ai_move = ai.minimax_white(game_state, 3, -100000, 100000, True, Player.PLAYER_2)
-                                game_state.move_piece(ai_move[0], ai_move[1], True)
+                                game_state.move_piece(ai_move[0], ai_move[1], True, True)
                             elif human_player is 'b':
                                 ai_move = ai.minimax_black(game_state, 3, -100000, 100000, True, Player.PLAYER_1)
-                                game_state.move_piece(ai_move[0], ai_move[1], True)
+                                game_state.move_piece(ai_move[0], ai_move[1], True, True)
                     else:
                         valid_moves = game_state.get_valid_moves((row, col))
                         if valid_moves is None:
@@ -180,12 +188,15 @@ def main():
         endgame = game_state.checkmate_stalemate_checker()
         if endgame == 0:
             game_over = True
+            logger.info("Black wins.")
             draw_text(screen, "Black wins.")
         elif endgame == 1:
             game_over = True
+            logger.info("White wins.")
             draw_text(screen, "White wins.")
         elif endgame == 2:
             game_over = True
+            logger.info("Stalemate.")
             draw_text(screen, "Stalemate.")
 
         clock.tick(MAX_FPS)
