@@ -11,10 +11,10 @@ import pygame as py
 import ai_engine
 from enums import Player
 
-from log import get_logger
+import log
 
 """ logger"""
-logger = get_logger()
+logger = log.get_logger()
 
 """Variables"""
 WIDTH = HEIGHT = 512  # width and height of the chess board
@@ -116,13 +116,14 @@ def main():
     py.init()
     screen = py.display.set_mode((WIDTH, HEIGHT))
     clock = py.time.Clock()
-    game_state = chess_engine.game_state()
     load_images()
     running = True
     square_selected = ()  # keeps track of the last selected square
     player_clicks = []  # keeps track of player clicks (two tuples)
     valid_moves = []
     game_over = False
+
+    log.start_game_data()
 
     ai = ai_engine.chess_ai()
     game_state = chess_engine.game_state()
@@ -167,6 +168,7 @@ def main():
                             elif human_player is 'b':
                                 ai_move = ai.minimax_black(game_state, 3, -100000, 100000, True, Player.PLAYER_1)
                                 game_state.move_piece(ai_move[0], ai_move[1], True, True)
+
                     else:
                         valid_moves = game_state.get_valid_moves((row, col))
                         if valid_moves is None:
@@ -201,6 +203,10 @@ def main():
 
         clock.tick(MAX_FPS)
         py.display.flip()
+
+    log.end_game_data()
+    log.print_knight_Move()
+    log.print_rounds_with_full_team()
 
     # elif human_player is 'w':
     #     ai = ai_engine.chess_ai()

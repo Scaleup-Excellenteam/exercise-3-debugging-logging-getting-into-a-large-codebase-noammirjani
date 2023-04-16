@@ -4,12 +4,13 @@
 #
 # Note: move log class inspired by Eddie Sharick
 #
+import log
 from Piece import Rook, Knight, Bishop, Queen, King, Pawn
 from enums import Player
-from log import get_logger
+import log
 
 """ logger"""
-logger = get_logger()
+logger = log.get_logger()
 
 '''
 r \ c     0           1           2           3           4           5           6           7 
@@ -466,7 +467,12 @@ class game_state:
                     if moving_piece.get_name() is "n":
                         if (last_move and is_ai) or not is_ai:
                             logger.info("Knight move")
-                            print("knight")
+                            log.add_knight_Move()
+
+                    if (last_move and is_ai) or not is_ai:
+                        if self.eaten_piece(next_square_row, next_square_col):
+                            log.update_eaten_pieces(self.white_turn)
+                        log.update_counter_move()
 
                     moving_piece.change_row_number(next_square_row)
                     moving_piece.change_col_number(next_square_col)
@@ -565,6 +571,18 @@ class game_state:
     # true if white, false if black
     def whose_turn(self):
         return self.white_turn
+
+    def eaten_piece(self, next_square_row, next_square_col):
+        if self.white_turn:
+            opp_player = Player.PLAYER_2
+        else:
+            opp_player = Player.PLAYER_1
+
+        if self.board[next_square_row][next_square_col] != Player.EMPTY:
+            if self.board[next_square_row][next_square_col].is_player(opp_player):
+                return True
+
+        return False
 
     '''
     check for immediate check
