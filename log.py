@@ -1,4 +1,5 @@
 import logging
+from enums import Player
 
 logFile = 'chess_logs.log'
 
@@ -28,15 +29,21 @@ def get_logger():
 
 
 # -----
-def add_knight_Move():
-    global knights_logger
-    knights_logger += 1
+def add_knight_Move(team):
+    global knights_logger_white
+    global knights_logger_black
+    if team:
+        knights_logger_white += 1
+    else:
+        knights_logger_black += 1
 
 
 # -----
 def print_knight_Move():
-    global knights_logger
-    logger.info(f"Number of knight moves: {knights_logger}")
+    global knights_logger_white
+    global knights_logger_black
+    logger.info(f"Number of knight moves white: {knights_logger_white}")
+    logger.info(f"Number of knight moves black: {knights_logger_black}")
 
 
 # -----
@@ -47,6 +54,7 @@ def end_game_data():
 
 # -----
 def start_game_data():
+    logger.info("*" * 50)
     logger.info("------- START GAME -------")
     logger.info("        GAME DATA:      ")
 
@@ -60,11 +68,9 @@ def update_counter_move():
 
     if not first_eaten_white:
         rounds_with_full_team_white += 1
-        print("white rounds", rounds_with_full_team_white)
 
     if not first_eaten_black:
         rounds_with_full_team_Black += 1
-        print("black rounds", rounds_with_full_team_Black)
 
 
 # -----
@@ -88,11 +94,39 @@ def print_rounds_with_full_team():
     logger.info(f"Rounds with full team black: {rounds_with_full_team_Black}")
 
 
+def print_board(game):
+    logger.info("---------  BOARD ---------")
+    logger.info("\n" + game)
+    logger.info("-------  END BOARD -------")
+
+
+# -----
+def count_check(team):
+    global count_white_check
+    global count_black_check
+    if team:
+        count_white_check += 1
+        print(f"White check: {count_white_check}")
+    else:
+        count_black_check += 1
+        print(f"Black check: {count_black_check}")
+
+
+# -----
+def print_check_counters():
+    global count_white_check
+    global count_black_check
+    logger.info(f"Number of checks white: {count_white_check}")
+    logger.info(f"Number of checks black: {count_black_check}")
+
+
 # -----
 logger = get_logger()
-knights_logger = 0
+knights_logger_white = 0
+knights_logger_black = 0
 rounds_with_full_team_white = 0
 rounds_with_full_team_Black = 0
 first_eaten_white = False
 first_eaten_black = False
-
+count_white_check = 0
+count_black_check = 0

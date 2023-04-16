@@ -128,11 +128,13 @@ def main():
     ai = ai_engine.chess_ai()
     game_state = chess_engine.game_state()
     if human_player is 'b':
-        logger.info("AI is black - human starts first")
+        logger.info("AI is white - AI starts first")
         ai_move = ai.minimax_black(game_state, 3, -100000, 100000, True, Player.PLAYER_1)
         game_state.move_piece(ai_move[0], ai_move[1], True, True)
+    elif number_of_players == 1:
+        logger.info("AI is black - human starts first")
     else:
-        logger.info("AI is white - AI starts first")
+        logger.info("Two human players, white starts first")
 
     while running:
         for e in py.event.get():
@@ -168,7 +170,6 @@ def main():
                             elif human_player is 'b':
                                 ai_move = ai.minimax_black(game_state, 3, -100000, 100000, True, Player.PLAYER_1)
                                 game_state.move_piece(ai_move[0], ai_move[1], True, True)
-
                     else:
                         valid_moves = game_state.get_valid_moves((row, col))
                         if valid_moves is None:
