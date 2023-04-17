@@ -106,10 +106,10 @@ def count_check(team):
     global count_black_check
     if team:
         count_white_check += 1
-        print(f"White check: {count_white_check}")
+        # print(f"White check: {count_white_check}")
     else:
         count_black_check += 1
-        print(f"Black check: {count_black_check}")
+        # print(f"Black check: {count_black_check}")
 
 
 # -----

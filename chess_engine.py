@@ -688,7 +688,7 @@ class game_state:
                     if (king_location_row, king_location_col) in self.get_piece(king_location_row,
                                                                                 king_location_col + _right).get_valid_piece_takes(
                         self):
-                        # self._is_check = True
+                        self._is_check = True
                         _checks.append((king_location_row, king_location_col + _right))
                 break
             _right += 1
@@ -719,7 +719,7 @@ class game_state:
                     if (king_location_row, king_location_col) in self.get_piece(king_location_row + _down,
                                                                                 king_location_col).get_valid_piece_takes(
                         self):
-                        # self._is_check = True
+                        self._is_check = True
                         _checks.append((king_location_row + _down, king_location_col))
                 break
             _down += 1
@@ -749,7 +749,7 @@ class game_state:
                     if (king_location_row, king_location_col) in self.get_piece(king_location_row - _up,
                                                                                 king_location_col).get_valid_piece_takes(
                         self):
-                        # self._is_check = True
+                        self._is_check = True
                         _checks.append((king_location_row - _up, king_location_col))
                 break
             _up += 1
@@ -782,7 +782,7 @@ class game_state:
                     if (king_location_row, king_location_col) in self.get_piece(king_location_row - _up,
                                                                                 king_location_col - _left).get_valid_piece_takes(
                         self):
-                        # self._is_check = True
+                        self._is_check = True
                         _checks.append((king_location_row - _up, king_location_col - _left))
                 break
             _left += 1
@@ -816,7 +816,7 @@ class game_state:
                     if (king_location_row, king_location_col) in self.get_piece(king_location_row - _up,
                                                                                 king_location_col + _right).get_valid_piece_takes(
                         self):
-                        # self._is_check = True
+                        self._is_check = True
                         _checks.append((king_location_row - _up, king_location_col + _right))
                 break
             _right += 1
@@ -850,7 +850,7 @@ class game_state:
                     if (king_location_row, king_location_col) in self.get_piece(king_location_row + _down,
                                                                                 king_location_col - _left).get_valid_piece_takes(
                         self):
-                        # self._is_check = True
+                        self._is_check = True
                         _checks.append((king_location_row + _down, king_location_col - _left))
                 break
             _left += 1
@@ -884,7 +884,7 @@ class game_state:
                     if (king_location_row, king_location_col) in self.get_piece(king_location_row + _down,
                                                                                 king_location_col + _right).get_valid_piece_takes(
                         self):
-                        # self._is_check = True
+                        self._is_check = True
                         _checks.append((king_location_row + _down, king_location_col + _right))
                 break
             _right += 1

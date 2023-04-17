@@ -208,6 +208,7 @@ def main():
     log.end_game_data()
     log.print_knight_Move()
     log.print_rounds_with_full_team()
+    log.print_check_counters()
 
     # elif human_player is 'w':
     #     ai = ai_engine.chess_ai()
